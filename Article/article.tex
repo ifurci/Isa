@@ -16,9 +16,9 @@
 %\newcommand{\figref}[1]{Figure \ref{#1}}
 %\newcommand{\figsref}[2]{Figures \ref{#1} and \ref{#2}}
 \usepackage{bm}
-
-\newcommand{\comm}[1]{\textbf{#1}}
-\newcommand{\pro}[1]{\textcolor{brown}{#1}}
+\usepackage{xcolor}
+\newcommand{\comm}[1]{{\color{red}{#1}}}
+\newcommand{\commb}[1]{{\color{blue}{#1}}}
 \usepackage{amsthm}
 \newtheorem{thm}{Theorem}
 \newtheorem{prf}{Proof}
@@ -26,9 +26,9 @@
 
 \usepackage{algorithmic}
 \usepackage{algorithm}
-
+\usepackage{cite}
 \usepackage{booktabs}
-
+\usepackage{hyperref}
 \makeatletter
 \newcommand{\doubletilde}[1]{{%
   \mathpalette\double@tilde{#1}%
@@ -60,8 +60,33 @@ An introduction
 \subsection{Standard Precondition}
  different examples
 \subsection{$\mathbb{Q}_p$ FEM}
-\section{Conclusions}
-\section{References}
+In~\cite{ekstrom181} closed formulae for the eigenvalues of $\mathbb{Q}_p$ Lagrange finite element stiffness and mass matrices, $K_n^{p}$ and $M_n^{p}$, were given. 
 
+
+Now consider the problem
+\begin{align}
+-\Delta u=\lambda u
+\end{align}
+with Dirichlet boudnary conditions. In discretized form, using $\mathbb{Q}_p$ FEM, is
+\begin{align}
+K_n^{p}\mathbf{u}_n=\lambda M_n^{p}\mathbf{u}_n.
+\end{align}
+Thus solving the generalized eigenvalue problem we have
+\begin{align}
+L_n^{p}\mathbf{u}_n=\lambda \mathbf{u}_n.
+\end{align}
+where
+\begin{align}
+L_n^{p}=(M_n^{p})^{-1}K_n^{p},
+\end{align}
+We here give closed formulae for the eigenvalues of $L_n^{p}$.
+
+\comm{insert correct scalings}
+
+\comm{insert algorithm, see Code/Experiments/newblock.m}
+\section{Conclusions}
+% \section{References}
+\bibliography{References}{}
+\bibliographystyle{plain}
 
 \end{document}

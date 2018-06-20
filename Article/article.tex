@@ -104,6 +104,95 @@ We here give closed formulae for the eigenvalues of $L_n^{p}$.
 \comm{insert correct scalings}
 
 \comm{insert algorithm, see Code/Experiments/newblock.m}
+
+In the following algorithm the symbol $\boldsymbol{\kappa}$ represents respectively the symbols $\mathbf{f},\mathbf{g},\mathbf{e},\mathbf{r}$ for the different matrices.
+\begin{enumerate}
+\item Sample symbol $\boldsymbol{\kappa}(\theta)$ with the grid $\tau_{n-1}^{0,\pi}$, that is,
+\begin{align}
+\theta_{j,n+1}=\frac{(j-1)\pi}{n},\quad j=1,\ldots, n+1.
+\end{align}
+For each sampling a matrix of size $p\times p$ is returned and a local eigenvalue problem is solved, giving $p$ eigenvalues. These are sorted in non-decreasing order and stored in $p$ different vectors $\boldsymbol{\mu}^{(i)}$. This results in $(n+1)p$ samplings, wheras the matrix only has $np$ eigenvalues, so $p$ samplings has to be discared.
+\item For eigenvalues belonging to the eigenvalue function $\lambda^{(1)}(\mathbf{\boldsymbol{\kappa}})$ (the smallest eigenvalues from each sampling) choose the eigenvalues $\boldsymbol{\mu}_j^{(1)}$, $j=2,\ldots, n$. This corresponds to using the grid $\tau_{n-1}$.
+\item[3.1.] For symbol $\mathbf{f}$ 
+\begin{itemize}
+	\item For all $p$, and $1<q\leq p$
+\begin{itemize}
+\item $q$ even: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{f})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=2,\ldots, n+1$.
+\item $q$ odd: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{f})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=1,\ldots, n$.
+\end{itemize}
+\end{itemize}
+\item[3.2.] For symbol $\mathbf{g}$
+\begin{itemize}
+\item For $p$ even, and $1<q\leq p$ 
+\begin{itemize}
+\item $q$ even: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{f})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=2,\ldots, n+1$.
+\item $q$ odd: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{f})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=1,\ldots, n$.
+\end{itemize}
+\item For $p$ odd, and $1<q\leq p$
+
+
+\begin{itemize}
+	\item Define
+\begin{align}
+\hat{p}=\begin{cases}
+p,&(p+1)/2 \text{ odd,}\\
+p-2,&(p+1)/2 \text{ even.}
+\end{cases}\nonumber
+\end{align}
+\item $q$ even: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{g})$ choose
+\begin{align}
+\boldsymbol{\mu}_j^{(q)},\quad j=
+\begin{cases}
+1,\ldots, n,&1<q\leq (\hat{p}+1)/2,\\
+2,\ldots, n+1,&(\hat{p}+1)/2<q\leq p.
+\end{cases}\nonumber
+\end{align}
+\item $q$ odd: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{g})$ choose
+\begin{align}
+\boldsymbol{\mu}_j^{(q)},\quad j=
+\begin{cases}
+2,\ldots, n+1,&1<q\leq (\hat{p}+1)/2,\\
+1,\ldots, n,&(\hat{p}+1)/2<q\leq p.
+\end{cases}\nonumber
+\end{align}
+% \item $q\leq (\hat{p}+1)/2$ even:  Eigenvalues belonging to $\lambda^{(q)}(\mathbf{g})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=1,\ldots, n$.
+% \item $q\leq (\hat{p}+1)/2$ odd:  Eigenvalues belonging to $\lambda^{(q)}(\mathbf{g})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=2,\ldots, n+1$.
+% \item $(\hat{p}+1)/2<q\leq p$ even: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{g})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=2,\ldots, n+1$.
+% \item $(\hat{p}+1)/2<q\leq p$ odd: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{g})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=1,\ldots, n$.
+\end{itemize}
+\end{itemize}
+\item[3.3.] For symbol $\mathbf{e}$
+
+\item[3.4.] For symbol $\mathbf{r}=\mathbf{g}^{-1}\mathbf{f}$
+\begin{itemize}
+\item For $p$ even, and $1\leq q\leq p$
+\begin{itemize}
+\item Add $\boldsymbol{\mu}_{n+1}^{(1)}$ to the eigenvalues beloning to $\lambda^{(1)}(\mathbf{r})$ chosen in Step 2.
+\item $q$ even: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{r})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=2,\ldots, n$.
+\item $q$ odd and $q>1$: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{r})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=1,\ldots, n+1$.
+\end{itemize}
+\item For $p$ odd, and $1<q\leq p$
+\begin{itemize}
+\item $q$ even: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{r})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=1,\ldots, n+1$.
+\item $q$ odd: Eigenvalues belonging to $\lambda^{(q)}(\mathbf{r})$ choose $\boldsymbol{\mu}_j^{(q)}$, $j=2,\ldots, n$.
+\end{itemize}
+\end{itemize}
+	% b=mod(p,2);
+	% aeL{1}=aeLs(1,2:n+1-b)';
+	% if p>1
+	% 	for qq=2:2:p
+	% 		aeL{qq}=aeLs(qq,2-b:n+b)';
+	% 	end
+	% 	for qq=3:2:p
+	% 		aeL{qq}=aeLs(qq,1+b:n+1-b)';
+	% 	end
+	% end
+\end{enumerate}
+\begin{align}
+\begin{array}{rrrrrrrrrrrr}
+K_n^{p}&M_n^{p}&H_n^{p}&L_n^{p}\\
+\end{array}\nonumber
+\end{align}
 \section{Conclusions}
 \bibliography{References}{}
 \bibliographystyle{plain}
